@@ -1,10 +1,11 @@
 ﻿using System;
 using Ui.MenuFsm.Parameters;
 using Ui.MenuFsm.Results;
+using Ui.MenuFsm.States.Base;
 
 namespace Ui.MenuFsm.States
 {
-    public class CommentInput : IState
+    public class CommentInput : BaseState
     {
         private bool _changeState;
 
@@ -14,7 +15,7 @@ namespace Ui.MenuFsm.States
 
         private Guid _id;
 
-        public ExecuteResult Execute(object v)
+        public override ExecuteResult Execute(object v)
         {
             var parameters = v as BaseParameters;
 
@@ -40,7 +41,7 @@ namespace Ui.MenuFsm.States
             return new TextInputResult() { Id = _id, State = State.AddComment, Comment = _buffer };
         }
 
-        private void Render()
+        protected override void Render()
         {
             Console.Clear();
 
@@ -56,7 +57,7 @@ namespace Ui.MenuFsm.States
             }
         }
 
-        private bool HandleInput()
+        protected override bool HandleInput()
         {
             if (_buffer == string.Empty)
             {

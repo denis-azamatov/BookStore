@@ -9,7 +9,7 @@ using Ui.MenuFsm.States.Base;
 
 namespace Ui.MenuFsm.States
 {
-    public class Preview : BaseState
+    public class PrintOutput : BaseState
     {
         private string _content;
 
@@ -31,7 +31,7 @@ namespace Ui.MenuFsm.States
                 render = HandleInput();
             }
 
-            return new ExecuteResult() { State = State.BookMenu };
+            return new ExecuteResult() { State = State.UserBookMenu };
         }
 
         protected override void Render()

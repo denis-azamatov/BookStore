@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Ui.MenuFsm.Parameters;
 using Ui.MenuFsm.Results;
 using Ui.MenuFsm.States.Base;
 
 namespace Ui.MenuFsm.States
 {
-    public class MainMenu : BaseState
+    public class BucketCatalog : BaseState
     {
         private List<string> _items;
-
-        private int _selectedItem;
 
         private bool _changeState;
 
@@ -20,9 +21,9 @@ namespace Ui.MenuFsm.States
         {
             var parameters = v as ItemsParameters<string>;
 
-            _items = parameters.Items;
+            _items = parameters?.Items;
 
-            _header = parameters.Header;
+            _header = parameters?.Header;
 
             var render = true;
             while (render)
@@ -34,16 +35,10 @@ namespace Ui.MenuFsm.States
 
             if (!_changeState)
             {
-                return new ExecuteResult { State = State.None };
+                return new ExecuteResult() { State = State.MainMenu };
             }
 
-            return _selectedItem switch
-            {
-                0 => new ExecuteResult { State = State.BookCatalog },
-                1 => new ExecuteResult { State = State.BucketCatalog },
-                2 => new ExecuteResult { State = State.UserCatalog },
-                _ => new ExecuteResult { State = State.MainMenu }
-            };
+            return new ExecuteResult() { State = State.AddToUser };
         }
 
         protected override void Render()
@@ -55,18 +50,11 @@ namespace Ui.MenuFsm.States
 
             for (int i = 0; i < _items.Count; i++)
             {
-                if (_selectedItem == i)
-                {
-                    var color = Console.ForegroundColor;
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine(_items[i]);
-                    Console.ForegroundColor = color;
-                }
-                else
-                {
-                    Console.WriteLine(_items[i]);
-                }
+                Console.WriteLine(_items[i]);
+                Console.WriteLine(new string('-', Console.WindowWidth));
             }
+
+            Console.WriteLine("Нажмите Enter чтоба купить");
         }
 
         protected override bool HandleInput()
@@ -75,14 +63,8 @@ namespace Ui.MenuFsm.States
 
             switch (input.Key)
             {
-                case ConsoleKey.UpArrow:
-                    _selectedItem = _selectedItem > 0 ? --_selectedItem : _items.Count - 1;
-                    return true;
-                case ConsoleKey.DownArrow:
-                    _selectedItem = _selectedItem < _items.Count - 1 ? ++_selectedItem : 0;
-                    return true;
                 case ConsoleKey.Enter:
-                    _changeState = true;
+                    _changeState = _items.Count > 0;
                     return false;
                 case ConsoleKey.Backspace:
                     _changeState = false;

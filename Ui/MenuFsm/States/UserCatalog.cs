@@ -10,7 +10,7 @@ using Ui.MenuFsm.States.Base;
 
 namespace Ui.MenuFsm.States
 {
-    public class BookCatalog : BaseState
+    public class UserCatalog : BaseState
     {
         private readonly List<Filter> _filters = new()
         {
@@ -53,7 +53,7 @@ namespace Ui.MenuFsm.States
                 return new ExecuteResult { State = State.MainMenu };
             }
 
-            return new IdExecuteResult { Id = _items[_selectedItem].Id, State = State.BookMenu };
+            return new IdExecuteResult { Id = _items[_selectedItem].Id, State = State.UserBookMenu };
         }
 
         protected override void Render()

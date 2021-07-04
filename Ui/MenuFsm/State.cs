@@ -24,9 +24,12 @@ namespace Ui.MenuFsm
         Preview,
 
         BucketCatalog,
+        AddToUser,
 
         UserCatalog,
-        Print,
+        UserBookMenu,
+        BeautifyPrint,
+        SimplePrint,
         PrintOutput
     }
 }

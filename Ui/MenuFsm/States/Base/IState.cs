@@ -1,6 +1,6 @@
 ﻿using Ui.MenuFsm.Results;
 
-namespace Ui.MenuFsm.States
+namespace Ui.MenuFsm.States.Base
 {
     public interface IState
     {

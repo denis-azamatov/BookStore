@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Ui.MenuFsm.Parameters;
 using Ui.MenuFsm.Results;
 using Ui.MenuFsm.States.Base;
 
 namespace Ui.MenuFsm.States
 {
-    public class MainMenu : BaseState
+    public class UserBookMenu : BaseState
     {
         private List<string> _items;
 
@@ -16,6 +19,8 @@ namespace Ui.MenuFsm.States
 
         private string _header;
 
+        private Guid _id;
+
         public override ExecuteResult Execute(object v)
         {
             var parameters = v as ItemsParameters<string>;
@@ -23,6 +28,8 @@ namespace Ui.MenuFsm.States
             _items = parameters.Items;
 
             _header = parameters.Header;
+
+            _id = parameters.Id;
 
             var render = true;
             while (render)
@@ -34,15 +41,14 @@ namespace Ui.MenuFsm.States
 
             if (!_changeState)
             {
-                return new ExecuteResult { State = State.None };
+                return new ExecuteResult { State = State.UserCatalog };
             }
 
-            return _selectedItem switch
+            return _items[_selectedItem] switch
             {
-                0 => new ExecuteResult { State = State.BookCatalog },
-                1 => new ExecuteResult { State = State.BucketCatalog },
-                2 => new ExecuteResult { State = State.UserCatalog },
-                _ => new ExecuteResult { State = State.MainMenu }
+                "Распечатать красиво" => new IdExecuteResult() { Id = _id, State = State.BeautifyPrint },
+                "Просто распечатать" => new IdExecuteResult() { Id = _id, State = State.SimplePrint },
+                _ => new IdExecuteResult() { Id = _id, State = State.BookMenu }
             };
         }
 

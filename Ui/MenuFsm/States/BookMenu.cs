@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using CORE.Models;
 using Ui.MenuFsm.Parameters;
 using Ui.MenuFsm.Results;
+using Ui.MenuFsm.States.Base;
 
 namespace Ui.MenuFsm.States
 {
-    public class BookMenu : IState
+    public class BookMenu : BaseState
     {
         private List<string> _items;
 
@@ -21,7 +22,7 @@ namespace Ui.MenuFsm.States
 
         private Guid _id;
 
-        public ExecuteResult Execute(object v)
+        public override ExecuteResult Execute(object v)
         {
             var parameters = v as ItemsParameters<string>;
 
@@ -53,7 +54,7 @@ namespace Ui.MenuFsm.States
             };
         }
 
-        private void Render()
+        protected override void Render()
         {
             Console.Clear();
 
@@ -76,7 +77,7 @@ namespace Ui.MenuFsm.States
             }
         }
 
-        private bool HandleInput()
+        protected override bool HandleInput()
         {
             var input = Console.ReadKey(true);
 

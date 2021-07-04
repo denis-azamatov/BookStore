@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Ui.MenuFsm.Parameters;
 using Ui.MenuFsm.Results;
+using Ui.MenuFsm.States.Base;
 
 namespace Ui.MenuFsm.States
 {
-    public class CommentsCatalog : IState
+    public class CommentsCatalog : BaseState
     {
         private List<string> _items;
 
@@ -18,7 +19,7 @@ namespace Ui.MenuFsm.States
 
         private Guid _id;
 
-        public ExecuteResult Execute(object v)
+        public override ExecuteResult Execute(object v)
         {
             var parameters = v as ItemsParameters<string>;
 
@@ -44,7 +45,7 @@ namespace Ui.MenuFsm.States
             return new IdExecuteResult() { Id = _id, State = State.CommentInput };
         }
 
-        private void Render()
+        protected override void Render()
         {
             Console.Clear();
 
@@ -60,7 +61,7 @@ namespace Ui.MenuFsm.States
             Console.WriteLine("Нажмите Enter чтоба добавить комментарий");
         }
 
-        private bool HandleInput()
+        protected override bool HandleInput()
         {
             var input = Console.ReadKey(true);
 

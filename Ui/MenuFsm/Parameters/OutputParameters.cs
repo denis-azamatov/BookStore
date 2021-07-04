@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ui.MenuFsm.Parameters
 {
-    public class PreviewParameters : BaseParameters
+    public class OutputParameters : BaseParameters
     {
         public string Content { get; set; }
     }
