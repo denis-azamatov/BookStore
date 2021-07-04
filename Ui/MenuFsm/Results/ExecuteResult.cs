@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Ui.MenuFsm.Results
 {
+    /// <summary>
+    /// Результат работы состояния
+    /// </summary>
     public class ExecuteResult
     {
         public State State { get; set; }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Ui.MenuFsm.Printers
 {
+    /// <summary>
+    /// Фабрика принтеров
+    /// </summary>
     public static class Printer
     {
         public static IPrinter BeautifyPrinter => new BeautifyPrinter();

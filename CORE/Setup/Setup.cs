@@ -4,8 +4,14 @@ using CORE.Models;
 
 namespace CORE.Setup
 {
+    /// <summary>
+    /// Установка хранилища
+    /// </summary>
     public static class Setup
     {
+        /// <summary>
+        /// Заполняет хранилище
+        /// </summary>
         public static void FillStorage()
         {
             var books = GetBooks();

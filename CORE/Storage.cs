@@ -3,6 +3,9 @@ using CORE.Models;
 
 namespace CORE
 {
+    /// <summary>
+    /// Хранилище
+    /// </summary>
     public class Storage
     {
         #region Singleton
